@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AirCinelMaui.Pages.HomePage"
+             Title="HomePage">
+
+
+    <ScrollView>
+        <StackLayout Padding="10" Spacing="15">
+            <Label Text="Upcoming Flights" 
+                   FontSize="Large" 
+                   HorizontalOptions="Center" />
+
+            <!-- Lista de Voos com ScrollView -->
+            <StackLayout x:Name="FlightsStackLayout" Spacing="10">
+                <!-- Cada voo será adicionado dinamicamente no code-behind -->
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+
+
+</ContentPage>

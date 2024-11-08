@@ -75,7 +75,7 @@ public class ApiService
             var json = JsonSerializer.Serialize(login, _serializerOptions);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await PostRequest("api/Users/Login", content);
+            var response = await PostRequest("api/Users/CreateTokenAPI", content);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError($"Error sending HTTP request: {response.StatusCode}");
@@ -96,7 +96,7 @@ public class ApiService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Erro no login : {ex.Message}");
+            _logger.LogError($"Login error: {ex.Message}");
             return new ApiResponse<bool> { ErrorMessage = ex.Message };
         }
     }
@@ -116,4 +116,59 @@ public class ApiService
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
     }
+
+    public async Task<ApiResponse<List<Country>>> GetCountriesAsync()
+    {
+        try
+        {
+            var response = await _httpClient.GetAsync(_baseUrl + "api/countries/countries");
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError($"Error sending HTTP request: {response.StatusCode}");
+                return new ApiResponse<List<Country>>
+                {
+                    ErrorMessage = $"Error sending HTTP request: {response.StatusCode}"
+                };
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var countries = JsonSerializer.Deserialize<List<Country>>(json, _serializerOptions);
+
+            return new ApiResponse<List<Country>> { Data = countries };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error getting countries: {ex.Message}");
+            return new ApiResponse<List<Country>> { ErrorMessage = ex.Message };
+        }
+    }
+
+    public async Task<ApiResponse<List<City>>> GetCitiesAsync(int id)
+    {
+        try
+        {
+            var response = await _httpClient.GetAsync(_baseUrl + $"api/countries/cities/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError($"Error sending HTTP request: {response.StatusCode}");
+                return new ApiResponse<List<City>>
+                {
+                    ErrorMessage = $"Error sending HTTP request: {response.StatusCode}"
+                };
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var cities = JsonSerializer.Deserialize<List<City>>(json, _serializerOptions);
+
+            return new ApiResponse<List<City>> { Data = cities };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error getting cities: {ex.Message}");
+            return new ApiResponse<List<City>> { ErrorMessage = ex.Message };
+        }
+
+    }
+
+
 }

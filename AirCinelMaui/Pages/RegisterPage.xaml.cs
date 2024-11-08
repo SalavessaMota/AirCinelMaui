@@ -1,5 +1,7 @@
 using AirCinelMaui.Models;
 using AirCinelMaui.Models.Dtos;
+using AirCinelMaui.Services;
+using AirCinelMaui.Validations;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 
@@ -8,11 +10,11 @@ namespace AirCinelMaui.Pages;
 public partial class RegisterPage : ContentPage
 {
     private readonly HttpClient _httpClient;
-    private List<Country> _countries;
+    private readonly ApiService _apiService;
     private List<City> _cities;
     private FileResult _selectedImageFile;
 
-    public RegisterPage()
+    public RegisterPage(ApiService apiService)
     {
         InitializeComponent();
         _httpClient = new HttpClient
@@ -20,6 +22,7 @@ public partial class RegisterPage : ContentPage
             //BaseAddress = new Uri("https://k6glbgpq-5001.uks1.devtunnels.ms/")
             BaseAddress = new Uri("https://aircinelmvc.azurewebsites.net/")
         };
+        _apiService = apiService;
     }
 
     protected override async void OnAppearing()
@@ -32,24 +35,53 @@ public partial class RegisterPage : ContentPage
     {
         try
         {
-            var response = await _httpClient.GetAsync("api/countries/countries");
-            if (response.IsSuccessStatusCode)
+            var response = await _apiService.GetCountriesAsync();
+
+            if (!string.IsNullOrEmpty(response.ErrorMessage))
             {
-                var json = await response.Content.ReadAsStringAsync();
-                _countries = JsonConvert.DeserializeObject<List<Country>>(json);
-                CountryPicker.ItemsSource = _countries;
-                CountryPicker.ItemDisplayBinding = new Binding("Name");
+                await DisplayAlert("Error", $"Failed to load countries: {response.ErrorMessage}", "Ok");
             }
+
+            CountryPicker.ItemsSource = response.Data;
+            CountryPicker.ItemDisplayBinding = new Binding("Name");
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"Failed to load countries: {ex.Message}", "OK");
+            await DisplayAlert("Error", $"An unexpected error occurred: {ex.Message}", "OK");
         }
     }
 
+    private async Task LoadCities(int countryId)
+    {
+        try
+        {
+            var response = await _apiService.GetCitiesAsync(countryId);
+
+            if (!string.IsNullOrEmpty(response.ErrorMessage))
+            {
+                await DisplayAlert("Error", $"Failed to load cities: {response.ErrorMessage}", "Ok");
+            }
+
+            CityPicker.ItemsSource = response.Data;
+            CityPicker.ItemDisplayBinding = new Binding("Name");
+        }
+        catch (Exception)
+        {
+            await DisplayAlert("Error", "Failed to load cities", "OK");
+        }
+    }
+
+    private async void CountryPicker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (CountryPicker.SelectedItem is Country selectedCountry)
+        {
+            await LoadCities(selectedCountry.Id);
+        }
+    }
+
+
     private async void BtnSignup_Clicked(object sender, EventArgs e)
     {
-        // Verifica se todos os campos obrigatórios estão preenchidos
         if (string.IsNullOrWhiteSpace(FirstNameEntry.Text) ||
             string.IsNullOrWhiteSpace(LastNameEntry.Text) ||
             string.IsNullOrWhiteSpace(EmailEntry.Text) ||
@@ -163,33 +195,7 @@ public partial class RegisterPage : ContentPage
     private async void TapLogin_Tapped(object sender, EventArgs e)
     {
         // Navegar para a página de login
-        await Navigation.PushAsync(new LoginPage());
+        await Navigation.PushAsync(new LoginPage(_apiService));
     }
 
-    private async void CountryPicker_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (CountryPicker.SelectedItem is Country selectedCountry)
-        {
-            await LoadCities(selectedCountry.Id);
-        }
-    }
-
-    private async Task LoadCities(int countryId)
-    {
-        try
-        {
-            var response = await _httpClient.GetAsync($"api/countries/cities/{countryId}");
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                _cities = JsonConvert.DeserializeObject<List<City>>(json);
-                CityPicker.ItemsSource = _cities;
-                CityPicker.ItemDisplayBinding = new Binding("Name");
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", $"Failed to load cities: {ex.Message}", "OK");
-        }
-    }
 }

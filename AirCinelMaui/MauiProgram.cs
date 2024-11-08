@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AirCinelMaui.Services;
+using AirCinelMaui.Validations;
+using Microsoft.Extensions.Logging;
 
 namespace AirCinelMaui
 {
@@ -19,6 +21,8 @@ namespace AirCinelMaui
     		builder.Logging.AddDebug();
 #endif
             builder.Services.AddHttpClient();
+            builder.Services.AddSingleton<ApiService>();
+            builder.Services.AddSingleton<IValidator, Validator>();
 
             return builder.Build();
         }
