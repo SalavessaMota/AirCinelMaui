@@ -1,7 +1,6 @@
 using AirCinelMaui.Models;
 using AirCinelMaui.Models.Dtos;
 using AirCinelMaui.Services;
-using AirCinelMaui.Validations;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
 
@@ -19,7 +18,6 @@ public partial class RegisterPage : ContentPage
         InitializeComponent();
         _httpClient = new HttpClient
         {
-            //BaseAddress = new Uri("https://k6glbgpq-5001.uks1.devtunnels.ms/")
             BaseAddress = new Uri("https://aircinelmvc.azurewebsites.net/")
         };
         _apiService = apiService;
@@ -78,7 +76,6 @@ public partial class RegisterPage : ContentPage
             await LoadCities(selectedCountry.Id);
         }
     }
-
 
     private async void BtnSignup_Clicked(object sender, EventArgs e)
     {
@@ -158,20 +155,13 @@ public partial class RegisterPage : ContentPage
         try
         {
             using var content = new MultipartFormDataContent();
-
-            // Lê o stream da imagem e cria o conteúdo para o upload
             var stream = await imageFile.OpenReadAsync();
             var fileContent = new StreamContent(stream);
             fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-
-            // Adiciona o arquivo ao conteúdo do form data com o nome "file"
             content.Add(fileContent, "file", imageFile.FileName);
-
-            // Envia a requisição para a API
             var response = await _httpClient.PostAsync("api/account/uploadimage", content);
-            var responseContent = await response.Content.ReadAsStringAsync(); // Captura o conteúdo da resposta
+            var responseContent = await response.Content.ReadAsStringAsync();
 
-            // Verifica se a resposta foi bem-sucedida
             if (response.IsSuccessStatusCode)
             {
                 var imageId = JsonConvert.DeserializeObject<Guid>(responseContent);
@@ -179,7 +169,6 @@ public partial class RegisterPage : ContentPage
             }
             else
             {
-                // Exibe a mensagem de erro se o upload falhar
                 await DisplayAlert("Error", $"Image upload failed: {response.StatusCode} - {responseContent}", "OK");
             }
         }
@@ -191,11 +180,8 @@ public partial class RegisterPage : ContentPage
         return Guid.Empty;
     }
 
-
     private async void TapLogin_Tapped(object sender, EventArgs e)
     {
-        // Navegar para a página de login
         await Navigation.PushAsync(new LoginPage(_apiService));
     }
-
 }

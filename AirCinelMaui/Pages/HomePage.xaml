@@ -1,22 +1,97 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="AirCinelMaui.Pages.HomePage"
-             Title="HomePage">
+             Title="Home Page">
 
 
-    <ScrollView>
-        <StackLayout Padding="10" Spacing="15">
-            <Label Text="Upcoming Flights" 
-                   FontSize="Large" 
-                   HorizontalOptions="Center" />
+    <Grid>
+         <!--Video Background--> 
+        <toolkit:MediaElement
+        Source="embed://backgroundvideoaircinelmvc2.mp4"
+        ShouldAutoPlay="True"
+        ShouldShowPlaybackControls="False"
+        Aspect="AspectFill"
+        ShouldLoopPlayback="True"
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand" />
 
-            <!-- Lista de Voos com ScrollView -->
-            <StackLayout x:Name="FlightsStackLayout" Spacing="10">
-                <!-- Cada voo será adicionado dinamicamente no code-behind -->
-            </StackLayout>
-        </StackLayout>
-    </ScrollView>
+        <!-- Main Content -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            AbsoluteLayout.LayoutFlags="All">
+            <VerticalStackLayout Padding="10" Spacing="15" VerticalOptions="Start" HorizontalOptions="Center">
+                
+                <!-- Logo -->
+                <Image Source="logoaircinelnavbar.png"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               VerticalOptions="StartAndExpand"
+               HeightRequest="180" />
+
+                <!-- Descriptive Text -->
+                <Frame HasShadow="true" CornerRadius="15" Padding="20" Margin="15" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Opacity="0.8">
+                    <StackLayout Spacing="5">
+                            <Label 
+                                Text="Welcome to AirCinel"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="#444"
+                                HorizontalTextAlignment="Center"
+                                Margin="0" />
+                            <Label 
+                                Text="Where every journey begins with excellence."
+                                FontSize="14"
+                                TextColor="#444"
+                                HorizontalTextAlignment="Center"
+                                Margin="0" />   
+                    </StackLayout>
+                </Frame>
+
+                <!-- Menu Buttons -->
+                <Frame HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
+                    <Button Text="Available Flights"
+                        Clicked="Button_Clicked"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="15"
+                        HeightRequest="50" />
+                </Frame>
+
+                <Frame x:Name="PastFlightsButton" HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
+                    <Button Text="Your Past Flights"
+                        Clicked="Button_Clicked_1"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="15"
+                        HeightRequest="50" />
+                </Frame>
+
+                <Frame x:Name="YourTicketsButton" HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
+                    <Button Text="Your Tickets"
+                        Clicked="Button_Clicked_2"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="15"
+                        HeightRequest="50" />   
+                </Frame>
+
+                <Frame HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
+                    <Button Text="About AircinelMaui"
+                        Clicked="Button_Clicked_3"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        CornerRadius="15"
+                        HeightRequest="50" />
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+
+
+
+    </Grid>
+    
+    
 
 
 </ContentPage>

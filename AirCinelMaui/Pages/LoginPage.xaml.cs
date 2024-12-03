@@ -55,7 +55,7 @@ public partial class LoginPage : ContentPage
                     Preferences.Set("UserName", loginResponse.UserName);
 
                     await DisplayAlert("Success", "Login successful! Welcome.", "OK");
-                    await Navigation.PushAsync(new AppShell(_apiService));
+                    Application.Current.MainPage = new AppShell(_apiService);
                 }
                 else
                 {

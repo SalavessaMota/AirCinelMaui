@@ -40,14 +40,13 @@
             Text="Enter"
             FontSize="Medium"
             x:Name="BtnSignIn" 
-            BackgroundColor="#a90409"
             Clicked="BtnSignIn_Clicked"/>
         <HorizontalStackLayout Grid.Row="4"
                            Spacing="2"
                            HorizontalOptions="Center"
                            VerticalOptions="EndAndExpand">
             <Label Text="Don't have an account ?" />
-            <Label Text="Sign up now" TextColor="#a90409" FontAttributes="Bold">
+            <Label Text="Sign up now" FontAttributes="Bold">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer x:Name="TapRegister"
                                       Tapped="TapRegister_Tapped"/>

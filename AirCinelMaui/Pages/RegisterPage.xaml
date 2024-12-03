@@ -92,7 +92,6 @@
             <Button Grid.Row="3"
                     Text="Register Account"
                     FontSize="Medium"
-                    BackgroundColor="#a90409"
                     TextColor="White"
                     CornerRadius="10"
                     x:Name="BtnSignup"

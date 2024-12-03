@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AirCinelMaui.Pages.AboutPage"
+             Title="AboutPage">
+
+    <StackLayout Padding="20" Spacing="20" HorizontalOptions="Center" VerticalOptions="StartAndExpand">
+
+        <Label Text="Author:" FontAttributes="Bold" />
+            
+        <Image Source="foto2023.jpg"
+                WidthRequest="250"
+                HeightRequest="250"
+                HorizontalOptions="Center"
+                Aspect="AspectFit"/>
+
+        <Label Text="Nuno Salavessa Mota"
+                FontSize="Large"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center" />
+
+        <StackLayout>
+            <Label Text="Version:" FontAttributes="Bold" />
+            <Label x:Name="VersionLabel" />
+            <Label Text="Build Date:" FontAttributes="Bold" />
+            <Label x:Name="DateLabel" />
+        </StackLayout>
+        
+    </StackLayout>
+
+
+
+</ContentPage>

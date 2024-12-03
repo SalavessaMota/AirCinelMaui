@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AirCinelMaui.Pages.AvailableFlightsPage"
+             Title="AvailableFlightsPage">
+
+    <ScrollView>
+        <StackLayout Padding="10" Spacing="15">
+            <Label Text="Upcoming Flights" 
+               FontSize="Large" 
+               HorizontalOptions="Center" />
+
+            <StackLayout x:Name="FlightsStackLayout" Spacing="10">                
+            </StackLayout>
+            
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
