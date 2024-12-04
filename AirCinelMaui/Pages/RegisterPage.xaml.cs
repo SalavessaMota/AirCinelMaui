@@ -2,6 +2,7 @@ using AirCinelMaui.Models;
 using AirCinelMaui.Models.Dtos;
 using AirCinelMaui.Services;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Json;
 
 namespace AirCinelMaui.Pages;
@@ -79,6 +80,7 @@ public partial class RegisterPage : ContentPage
 
     private async void BtnSignup_Clicked(object sender, EventArgs e)
     {
+        // Validação de campos obrigatórios
         if (string.IsNullOrWhiteSpace(FirstNameEntry.Text) ||
             string.IsNullOrWhiteSpace(LastNameEntry.Text) ||
             string.IsNullOrWhiteSpace(EmailEntry.Text) ||
@@ -89,6 +91,29 @@ public partial class RegisterPage : ContentPage
             return;
         }
 
+        // Validação de email
+        if (!new EmailAddressAttribute().IsValid(EmailEntry.Text))
+        {
+            await DisplayAlert("Error", "Please enter a valid email address.", "OK");
+            return;
+        }
+
+        // Validação de password
+        var passwordRegex = new System.Text.RegularExpressions.Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+        if (!passwordRegex.IsMatch(PasswordEntry.Text))
+        {
+            await DisplayAlert("Error", "The password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, one digit, and one special character.", "OK");
+            return;
+        }
+
+        // Verificação de correspondência entre senha e confirmação
+        if (PasswordEntry.Text != ConfirmPasswordEntry.Text)
+        {
+            await DisplayAlert("Error", "The password and confirmation password do not match.", "OK");
+            return;
+        }
+
+        // Validação de país e cidade selecionados
         if (CountryPicker.SelectedItem is not Country selectedCountry ||
             CityPicker.SelectedItem is not City selectedCity)
         {
@@ -96,8 +121,8 @@ public partial class RegisterPage : ContentPage
             return;
         }
 
+        // Upload da imagem (se selecionada)
         Guid imageId = Guid.Empty;
-
         if (_selectedImageFile != null)
         {
             imageId = await UploadImageAsync(_selectedImageFile);
@@ -109,6 +134,7 @@ public partial class RegisterPage : ContentPage
             }
         }
 
+        // Criação do DTO de registro
         var registerDto = new RegisterDto
         {
             FirstName = FirstNameEntry.Text.Trim(),
@@ -122,18 +148,28 @@ public partial class RegisterPage : ContentPage
             ImageId = imageId
         };
 
-        var response = await _httpClient.PostAsJsonAsync("api/account/register", registerDto);
-        if (response.IsSuccessStatusCode)
+        try
         {
-            await DisplayAlert("Success", "Registration successful! Please check your email to confirm your account.", "OK");
-            await Navigation.PopAsync();
+            // Envio do registro para a API
+            var response = await _httpClient.PostAsJsonAsync("api/account/register", registerDto);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await DisplayAlert("Success", "Registration successful! Please check your email to confirm your account.", "OK");
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                await DisplayAlert("Error", $"Registration failed: {errorMessage}", "OK");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            var errorMessage = await response.Content.ReadAsStringAsync();
-            await DisplayAlert("Error", $"Registration failed: {errorMessage}", "OK");
+            await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
         }
     }
+
 
     private async void ChooseImage_Clicked(object sender, EventArgs e)
     {
