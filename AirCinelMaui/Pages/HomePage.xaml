@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="AirCinelMaui.Pages.HomePage"
-             Title="Home Page">
-
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:AirCinelMaui.ViewModels"
+    x:Class="AirCinelMaui.Pages.HomePage"
+    Title="Main Menu">
 
     <Grid>
-         <!--Video Background--> 
+        <!--Video Background-->
         <toolkit:MediaElement
-        Source="embed://backgroundvideoaircinelmvc2.mp4"
-        ShouldAutoPlay="True"
-        ShouldShowPlaybackControls="False"
-        Aspect="AspectFill"
-        ShouldLoopPlayback="True"
-        VerticalOptions="FillAndExpand"
-        HorizontalOptions="FillAndExpand" />
+            Source="embed://backgroundvideoaircinelmvc2.mp4"
+            ShouldAutoPlay="True"
+            ShouldShowPlaybackControls="False"
+            Aspect="AspectFill"
+            ShouldLoopPlayback="True"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand" />
 
         <!-- Main Content -->
         <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-            AbsoluteLayout.LayoutFlags="All">
+                AbsoluteLayout.LayoutFlags="All">
             <VerticalStackLayout Padding="10" Spacing="15" VerticalOptions="Start" HorizontalOptions="Center">
 
                 <Frame BackgroundColor="#80FFFFFF"
@@ -44,64 +45,84 @@
                        HorizontalOptions="CenterAndExpand"
                        BackgroundColor="#80FFFFFF">
                     <StackLayout Spacing="5">
-                            <Label 
+                        <Label 
                                 Text="Welcome to AirCinel"
                                 FontSize="16"
                                 FontAttributes="Bold"
                                 TextColor="#444"
                                 HorizontalTextAlignment="Center"
                                 Margin="0" />
-                            <Label 
+                        <Label 
                                 Text="Where every journey begins with excellence."
                                 FontSize="14"
                                 TextColor="#444"
                                 HorizontalTextAlignment="Center"
-                                Margin="0" />   
+                                Margin="0" />
                     </StackLayout>
                 </Frame>
 
                 <!-- Menu Buttons -->
 
-                <Frame x:Name="LoginButton" HasShadow="True" CornerRadius="15" Padding="10" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" BackgroundColor="White">
+                <Frame x:Name="LoginButton" 
+                       HasShadow="True" 
+                       CornerRadius="15" 
+                       Padding="10" 
+                       WidthRequest="100" 
+                       HeightRequest="100" 
+                       HorizontalOptions="Center" 
+                       BackgroundColor="White"
+                       IsVisible="{Binding IsLoginButtonVisible}">
                     <ImageButton
                         Source="login.png"
                         Aspect="AspectFit"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Clicked="LoginButton_Clicked" />
+                        Command="{Binding LoginCommand}" />
                 </Frame>
-                
+
                 <Frame HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
                     <Button Text="Available Flights"
-                        Clicked="Button_Clicked"
+                        Command="{Binding AvailableFlightsCommand}"
                         FontSize="Medium"
                         FontAttributes="Bold"
                         CornerRadius="15"
                         HeightRequest="50" />
                 </Frame>
 
-                <Frame x:Name="PastFlightsButton" HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
+                <Frame x:Name="PastFlightsButton" 
+                       HasShadow="True" 
+                       CornerRadius="15" 
+                       Padding="0" 
+                       WidthRequest="250" 
+                       HorizontalOptions="Center"
+                       IsVisible="{Binding IsPastFlightsButtonVisible}">
                     <Button Text="Your Past Flights"
-                        Clicked="Button_Clicked_1"
+                        Command="{Binding FlightHistoryCommand}"
                         FontSize="Medium"
                         FontAttributes="Bold"
                         CornerRadius="15"
                         HeightRequest="50" />
                 </Frame>
 
-                <Frame x:Name="YourTicketsButton" HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
+                <Frame x:Name="YourTicketsButton" 
+                       HasShadow="True" 
+                       CornerRadius="15" 
+                       Padding="0" 
+                       WidthRequest="250" 
+                       HorizontalOptions="Center"
+                       IsVisible="{Binding IsYourTicketsButtonVisible}">
                     <Button Text="Your Tickets"
-                        Clicked="Button_Clicked_2"
+                        Command="{Binding UserTicketsCommand}"
                         FontSize="Medium"
                         FontAttributes="Bold"
                         CornerRadius="15"
-                        HeightRequest="50" />   
+                        HeightRequest="50" />
                 </Frame>
 
 
                 <Frame HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
                     <Button Text="About AircinelMaui"
-                        Clicked="Button_Clicked_3"
+                        Command="{Binding AboutCommand}"
                         FontSize="Medium"
                         FontAttributes="Bold"
                         CornerRadius="15"
@@ -109,12 +130,5 @@
                 </Frame>
             </VerticalStackLayout>
         </ScrollView>
-
-
-
     </Grid>
-    
-    
-
-
 </ContentPage>

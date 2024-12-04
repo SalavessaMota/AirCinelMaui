@@ -2,32 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AirCinelMaui.Pages.AboutPage"
-             Title="AboutPage">
+             xmlns:vm="clr-namespace:AirCinelMaui.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
 
     <StackLayout Padding="20" Spacing="20" HorizontalOptions="Center" VerticalOptions="StartAndExpand">
 
         <Label Text="Author:" FontAttributes="Bold" />
-            
+
         <Image Source="foto2023.jpg"
-                WidthRequest="250"
-                HeightRequest="250"
-                HorizontalOptions="Center"
-                Aspect="AspectFit"/>
+               WidthRequest="250"
+               HeightRequest="250"
+               HorizontalOptions="Center"
+               Aspect="AspectFit"/>
 
         <Label Text="Nuno Salavessa Mota"
-                FontSize="Large"
-                FontAttributes="Bold"
-                HorizontalTextAlignment="Center" />
+               FontSize="Large"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center" />
 
         <StackLayout>
             <Label Text="Version:" FontAttributes="Bold" />
-            <Label x:Name="VersionLabel" />
+            <Label Text="{Binding Version}" />
             <Label Text="Build Date:" FontAttributes="Bold" />
-            <Label x:Name="DateLabel" />
+            <Label Text="{Binding BuildDate}" />
         </StackLayout>
-        
+
     </StackLayout>
-
-
 
 </ContentPage>
