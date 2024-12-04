@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AirCinelMaui.Pages.AvailableFlightsPage"
@@ -6,13 +5,37 @@
 
     <ScrollView>
         <StackLayout Padding="10" Spacing="15">
-            <Label Text="Upcoming Flights" 
-               FontSize="Large" 
-               HorizontalOptions="Center" />
 
-            <StackLayout x:Name="FlightsStackLayout" Spacing="10">                
+            <!-- Filters Section -->
+            <StackLayout Orientation="Vertical" Spacing="10">
+                <Label Text="Filters" FontSize="Medium" FontAttributes="Bold" />
+
+                <!-- Departure Airport Filter -->
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="From:" VerticalOptions="Center" />
+                    <Picker x:Name="DepartureCityPicker" WidthRequest="150" />
+                </StackLayout>
+
+                <!-- Arrival Airport Filter -->
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="To:" VerticalOptions="Center" />
+                    <Picker x:Name="ArrivalCityPicker" WidthRequest="150" />
+                </StackLayout>
+
+                <!-- Apply Filters Button -->
+                <Button Text="Apply Filters"
+                        BackgroundColor="Blue"
+                        TextColor="White"
+                        Clicked="ApplyFiltersButton_Clicked" />
             </StackLayout>
-            
+
+            <Label Text="Upcoming Flights" 
+                   FontSize="Large" 
+                   HorizontalOptions="Center" />
+
+            <StackLayout x:Name="FlightsStackLayout" Spacing="10">
+            </StackLayout>
+
         </StackLayout>
     </ScrollView>
 
