@@ -41,18 +41,38 @@
             FontSize="Medium"
             x:Name="BtnSignIn" 
             Clicked="BtnSignIn_Clicked"/>
-        <HorizontalStackLayout Grid.Row="4"
-                           Spacing="2"
-                           HorizontalOptions="Center"
-                           VerticalOptions="EndAndExpand">
-            <Label Text="Don't have an account ?" />
-            <Label Text="Sign up now" FontAttributes="Bold">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer x:Name="TapRegister"
-                                      Tapped="TapRegister_Tapped"/>
-                </Label.GestureRecognizers>
-            </Label>
-        </HorizontalStackLayout>
+
+        <VerticalStackLayout Grid.Row="4">
+            
+            <HorizontalStackLayout
+                   Spacing="2"
+                   HorizontalOptions="Center"
+                   VerticalOptions="EndAndExpand">
+                <Label Text="Don't have an account ?" />
+                <Label Text="Sign up now" FontAttributes="Bold">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapRegister"
+                              Tapped="TapRegister_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                   Spacing="2"
+                   HorizontalOptions="Center"
+                   VerticalOptions="EndAndExpand">
+                <Label Text="Forgot your password ?" />
+                <Label Text="Recover password" FontAttributes="Bold">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapRecoverpassword"
+                  Tapped="TapRecoverpassword_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+            
+        </VerticalStackLayout>
+        
+        
     </Grid>
     
 </ContentPage>

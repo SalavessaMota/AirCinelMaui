@@ -67,6 +67,10 @@ public partial class LoginPage : ContentPage
                 await DisplayAlert("Error", $"JSON Deserialization Error: {jsonEx.Message}", "OK");
             }
         }
+        else
+        {
+               await DisplayAlert("Error", "Invalid email or password", "OK");        
+        }
 
     }
 
@@ -75,5 +79,10 @@ public partial class LoginPage : ContentPage
     private async void TapRegister_Tapped(object sender, TappedEventArgs e)
     {
         await Navigation.PushAsync(new RegisterPage(_apiService));
+    }
+
+    private async void TapRecoverpassword_Tapped(object sender, TappedEventArgs e)
+    {
+        await Navigation.PushAsync(new RecoverPasswordPage());
     }
 }

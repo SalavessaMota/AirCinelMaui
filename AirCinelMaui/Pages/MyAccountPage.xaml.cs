@@ -97,4 +97,9 @@ public partial class MyAccountPage : ContentPage
             await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
         }
     }
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ChangePasswordPage());
+    }
 }

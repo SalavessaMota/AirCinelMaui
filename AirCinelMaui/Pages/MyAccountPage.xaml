@@ -20,6 +20,8 @@
             <Entry x:Name="AddressEntry" Placeholder="Enter your address" />
 
             <Button Text="Save Changes" Clicked="OnSaveChangesClicked" />
+
+            <Button Text="Change Password" Clicked="Button_Clicked" />
         </StackLayout>
     </ScrollView>
 
