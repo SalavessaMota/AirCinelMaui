@@ -21,16 +21,28 @@
         <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             AbsoluteLayout.LayoutFlags="All">
             <VerticalStackLayout Padding="10" Spacing="15" VerticalOptions="Start" HorizontalOptions="Center">
-                
-                <!-- Logo -->
-                <Image Source="logoaircinelnavbar.png"
-               Aspect="AspectFit"
-               HorizontalOptions="Center"
-               VerticalOptions="StartAndExpand"
-               HeightRequest="180" />
+
+                <Frame BackgroundColor="#80FFFFFF"
+                       Padding="10"
+                       CornerRadius="15"
+                       HasShadow="True"
+                       HorizontalOptions="Center"
+                       VerticalOptions="StartAndExpand">
+                    <Image Source="logoaircinelnavbar.png"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HeightRequest="180" />
+                </Frame>
 
                 <!-- Descriptive Text -->
-                <Frame HasShadow="true" CornerRadius="15" Padding="20" Margin="15" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Opacity="0.8">
+                <Frame HasShadow="true" 
+                       CornerRadius="15" 
+                       Padding="20" 
+                       Margin="10" 
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand"
+                       BackgroundColor="#80FFFFFF">
                     <StackLayout Spacing="5">
                             <Label 
                                 Text="Welcome to AirCinel"
@@ -49,6 +61,16 @@
                 </Frame>
 
                 <!-- Menu Buttons -->
+
+                <Frame x:Name="LoginButton" HasShadow="True" CornerRadius="15" Padding="10" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" BackgroundColor="White">
+                    <ImageButton
+                        Source="login.png"
+                        Aspect="AspectFit"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Clicked="LoginButton_Clicked" />
+                </Frame>
+                
                 <Frame HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
                     <Button Text="Available Flights"
                         Clicked="Button_Clicked"
@@ -75,6 +97,7 @@
                         CornerRadius="15"
                         HeightRequest="50" />   
                 </Frame>
+
 
                 <Frame HasShadow="True" CornerRadius="15" Padding="0" WidthRequest="250" HorizontalOptions="Center">
                     <Button Text="About AircinelMaui"

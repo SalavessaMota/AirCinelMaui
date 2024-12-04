@@ -63,7 +63,7 @@ public partial class ProfilePage : ContentPage
 
     private void MyAccount_Tapped(object sender, TappedEventArgs e)
     {
-
+        Navigation.PushAsync(new MyAccountPage(_apiService));
     }
 
     private void Faq_Tapped(object sender, TappedEventArgs e)
@@ -71,9 +71,53 @@ public partial class ProfilePage : ContentPage
         Navigation.PushAsync(new QuestionsPage());
     }
 
-    private void ImgBtnProfile_Clicked(object sender, EventArgs e)
+    private async void ImgBtnProfile_Clicked(object sender, EventArgs e)
     {
+        try
+        {
+            // Selecionar a nova imagem
+            var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
+            {
+                Title = "Select Profile Picture"
+            });
 
+            if (result != null)
+            {
+                using var stream = await result.OpenReadAsync();
+                var content = new MultipartFormDataContent();
+                var fileContent = new StreamContent(stream);
+                fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+
+                content.Add(fileContent, "file", result.FileName);
+
+                var token = Preferences.Get("AuthToken", string.Empty);
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    await DisplayAlert("Error", "Token not found. Please log in again.", "OK");
+                    return;
+                }
+
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var response = await _httpClient.PostAsync("api/account/uploadImage", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var newImagePath = await response.Content.ReadAsStringAsync();
+                    ImgBtnProfile.Source = ImageSource.FromUri(new Uri(newImagePath));
+                    await DisplayAlert("Success", "Profile picture updated successfully.", "OK");
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Failed to upload the new profile picture.", "OK");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+        }
     }
 
     private void BtnLogout_Clicked(object sender, EventArgs e)

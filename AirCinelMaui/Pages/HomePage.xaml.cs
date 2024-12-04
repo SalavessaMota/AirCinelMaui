@@ -24,6 +24,7 @@ public partial class HomePage : ContentPage
         var token = Preferences.Get("AuthToken", string.Empty);
         PastFlightsButton.IsVisible = !string.IsNullOrEmpty(token);
         YourTicketsButton.IsVisible = !string.IsNullOrEmpty(token);
+        LoginButton.IsVisible = string.IsNullOrEmpty(token);
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
@@ -44,5 +45,10 @@ public partial class HomePage : ContentPage
     private async void Button_Clicked_3(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new AboutPage());
+    }
+
+    private async void LoginButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new LoginPage(_apiService));
     }
 }

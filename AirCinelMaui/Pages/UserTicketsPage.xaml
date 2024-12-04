@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AirCinelMaui.Pages.UserTicketsPage"
-             Title="UserTicketsPage">
+             Title="Your Tickets">
 
     <ScrollView>
         <StackLayout Padding="10" Spacing="15">

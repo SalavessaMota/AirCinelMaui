@@ -8,8 +8,9 @@
 
         <VerticalStackLayout Grid.Row="0"
                          VerticalOptions="Start"
-                         Spacing="1"
-                         Padding="20">
+                         Spacing="10"
+                         Padding="20"
+                         Margin="20">
 
             <ImageButton Source="user1.png"
                      HeightRequest="150"
@@ -18,6 +19,10 @@
                      HorizontalOptions="Center" 
                      x:Name="ImgBtnProfile"
                      Clicked="ImgBtnProfile_Clicked"/>
+
+            <Label Text="(Click the image to change it)"
+               HorizontalOptions="Center"
+               TextColor="Black" />
 
             <Label x:Name="LblUsername"
                HorizontalOptions="Center"
