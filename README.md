@@ -63,10 +63,10 @@ AirCinelMaui is a mobile application developed with .NET MAUI that simulates the
 Here are some screenshots showcasing the main features of the AirCinelMaui application:
 
 Home Screen
-![Home Screen]((https://aircinelmvc.blob.core.windows.net/resources/1.jpg))
+![Home Screen](https://aircinelmvc.blob.core.windows.net/resources/1.jpg)
 
 User Registration
-![User Registration]((https://aircinelmvc.blob.core.windows.net/resources/11.jpg))
+![User Registration](https://aircinelmvc.blob.core.windows.net/resources/11.jpg)
 
 Login Screen
 
