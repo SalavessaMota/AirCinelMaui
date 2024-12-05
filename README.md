@@ -59,6 +59,45 @@ AirCinelMaui is a mobile application developed with .NET MAUI that simulates the
 - Frequently Asked Questions:
   - Find answers to common questions about the application.
 
+🎨 Screenshots
+Here are some screenshots showcasing the main features of the AirCinelMaui application:
+
+Home Screen
+![Home Screen]((https://aircinelmvc.blob.core.windows.net/resources/1.jpg))
+
+User Registration
+![User Registration]((https://aircinelmvc.blob.core.windows.net/resources/11.jpg))
+
+Login Screen
+
+
+Available Flights
+
+
+Flight Details
+
+
+Seat Selection
+
+
+Purchase Confirmation
+
+
+Flight History
+
+
+Profile Management
+
+
+Change Password
+
+
+Frequently Asked Questions
+
+
+Logout Screen
+
+
 🛠️ Technologies Used
   - .NET MAUI: Framework for cross-platform mobile application development.
   - C#: Programming language used for development.
