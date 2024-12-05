@@ -1,6 +1,6 @@
 # AirCinelMaui
 
-AirCinelMaui is a mobile application developed with .NET MAUI, utilizing the MVVM (Model-View-ViewModel) design pattern, which separates the user interface from the business logic for better maintainability and scalability. This application simulates the flight booking system of the fictional airline AirCinel, providing users with a complete flight booking experience—from registration and login to viewing available flights, purchasing tickets, viewing flight history, and managing profiles.
+AirCinelMaui is a mobile application developed with .NET MAUI, utilizing the MVVM (Model-View-ViewModel) design pattern, which separates the user interface from the business logic for better maintainability and scalability. This application simulates the flight booking system of the fictional airline AirCinel, providing users with a complete flight booking experience, from registration and login to viewing available flights, purchasing tickets, viewing flight history, and managing profiles.
 
 ## 📱 Features
 
