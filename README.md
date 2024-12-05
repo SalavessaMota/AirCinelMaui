@@ -67,6 +67,6 @@ AirCinelMaui is a mobile application developed with .NET MAUI that simulates the
   - RESTful API: Communication with the backend for CRUD operations and authentication.
 
 📧 Contact
-Name: Nuno Salavessa Mota
-Email: nunosalavessa@hotmail.com
-LinkedIn: [Your Profile](https://www.linkedin.com/in/nunosalavessamota/)
+- Name: Nuno Salavessa Mota
+- Email: nunosalavessa@hotmail.com
+- LinkedIn: [My Profile](https://www.linkedin.com/in/nunosalavessamota/)
