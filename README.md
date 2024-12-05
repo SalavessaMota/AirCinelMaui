@@ -60,43 +60,37 @@ AirCinelMaui is a mobile application developed with .NET MAUI that simulates the
   - Find answers to common questions about the application.
 
 🎨 Screenshots
-Here are some screenshots showcasing the main features of the AirCinelMaui application:
+- Here are some screenshots showcasing the main features of the AirCinelMaui application:
 
-Home Screen
-![Home Screen](https://aircinelmvc.blob.core.windows.net/resources/1.jpg)
+- Home Screen
+<img src="https://aircinelmvc.blob.core.windows.net/resources/1.jpg" alt="Home Screen" width="300"/>
 
-User Registration
-![User Registration](https://aircinelmvc.blob.core.windows.net/resources/11.jpg)
+- User Registration
+<img src="https://aircinelmvc.blob.core.windows.net/resources/11.jpg" alt="User Registration" width="300"/>
 
-Login Screen
+- Login Screen
+<img src="https://aircinelmvc.blob.core.windows.net/resources/10.jpg" alt="Login Screen" width="300"/>
 
+- Available Flights
+<img src="https://aircinelmvc.blob.core.windows.net/resources/2.jpg" alt="Available Flights" width="300"/>
 
-Available Flights
+- Seat Selection
+<img src="https://aircinelmvc.blob.core.windows.net/resources/13.jpg" alt="Seat Selection" width="300"/>
 
+- Flight History
+<img src="https://aircinelmvc.blob.core.windows.net/resources/3.jpg" alt="Flight History" width="300"/>
 
-Flight Details
+- Profile Management
+<img src="https://aircinelmvc.blob.core.windows.net/resources/6.jpg" alt="Profile Management" width="300"/>
 
+- Change Password
+<img src="https://aircinelmvc.blob.core.windows.net/resources/8.jpg" alt="Change Password" width="300"/>
 
-Seat Selection
+- Frequently Asked Questions
+<img src="https://aircinelmvc.blob.core.windows.net/resources/8.jpg" alt="Frequently Asked Questions" width="300"/>
 
-
-Purchase Confirmation
-
-
-Flight History
-
-
-Profile Management
-
-
-Change Password
-
-
-Frequently Asked Questions
-
-
-Logout Screen
-
+- About
+<img src="https://aircinelmvc.blob.core.windows.net/resources/5.jpg" alt="About" width="300"/>
 
 🛠️ Technologies Used
   - .NET MAUI: Framework for cross-platform mobile application development.
