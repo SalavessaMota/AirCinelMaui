@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using AirCinelMaui.Models.Dtos;
@@ -10,7 +8,7 @@ using System.Net.Http.Json;
 
 namespace AirCinelMaui.ViewModels
 {
-    public class ChangePasswordViewModel : INotifyPropertyChanged
+    public class ChangePasswordViewModel : BaseViewModel
     {
         private readonly HttpClient _httpClient;
 
@@ -120,26 +118,6 @@ namespace AirCinelMaui.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = "")
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value))
-                return false;
-            field = value;
-            OnPropertyChanged(propertyName);
-            return true;
         }
     }
 }

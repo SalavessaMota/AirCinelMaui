@@ -1,80 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AirCinelMaui.Pages.QuestionsPage"
-             Title="QuestionsPage">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:AirCinelMaui.ViewModels"
+    x:Class="AirCinelMaui.Pages.QuestionsPage"
+    Title="Questions">
 
     <ScrollView>
         <VerticalStackLayout Padding="10" Spacing="15">
 
-            <Label Text="Frequently Asked Questions"
+            <Label Text="{Binding Title}"
                    FontSize="Large"
                    HorizontalOptions="Center"
                    FontAttributes="Bold" />
 
-            <!-- Question 1 -->
-            <StackLayout>
-                <Label Text="1. How can I book a flight?"
-                       FontAttributes="Bold"
-                       FontSize="Medium" />
-                <Label Text="To book a flight, navigate to the 'Home' tab, choose your desired flight from the list, select an available seat, and proceed with the booking." />
-            </StackLayout>
-
-            <!-- Question 2 -->
-            <StackLayout>
-                <Label Text="2. Can I change my seat after booking?"
-                       FontAttributes="Bold"
-                       FontSize="Medium" />
-                <Label Text="Once you've booked a seat, you will need to contact customer support to change it. Seat changes are subject to availability." />
-            </StackLayout>
-
-            <!-- Question 3 -->
-            <StackLayout>
-                <Label Text="3. How do I view my flight history?"
-                       FontAttributes="Bold"
-                       FontSize="Medium" />
-                <Label Text="You can view your flight history in the 'Profile' tab under 'My Flights'. Here, you will see both past and upcoming flights." />
-            </StackLayout>
-
-            <!-- Question 4 -->
-            <StackLayout>
-                <Label Text="4. What payment methods are accepted?"
-                       FontAttributes="Bold"
-                       FontSize="Medium" />
-                <Label Text="Currently, we accept major credit and debit cards. Additional payment options may be added in the future." />
-            </StackLayout>
-
-            <!-- Question 5 -->
-            <StackLayout>
-                <Label Text="5. How can I contact customer support?"
-                       FontAttributes="Bold"
-                       FontSize="Medium" />
-                <Label Text="You can contact customer support via the 'Profile' tab by tapping on 'Contact Support'. Alternatively, you can email us at support@aircinelmvc.com." />
-            </StackLayout>
-
-            <!-- Question 6 -->
-            <StackLayout>
-                <Label Text="6. What should I do if I forgot my password?"
-                       FontAttributes="Bold"
-                       FontSize="Medium" />
-                <Label Text="If you forgot your password, go to the login screen and tap on 'Forgot Password?' to initiate the password recovery process." />
-            </StackLayout>
-
-            <!-- Question 7 -->
-            <StackLayout>
-                <Label Text="7. Can I cancel my booking?"
-                       FontAttributes="Bold"
-                       FontSize="Medium" />
-                <Label Text="Cancellations are available for eligible bookings. Please contact support for more details on your specific booking." />
-            </StackLayout>
-
-            <!-- Question 8 -->
-            <StackLayout>
-                <Label Text="8. How can I update my profile information?"
-                       FontAttributes="Bold"
-                       FontSize="Medium" />
-                <Label Text="You can update your profile information in the 'Profile' tab under 'Edit Profile'. Here, you can change your contact details, address, and other personal information." />
-            </StackLayout>
+            <!-- Questions List -->
+            <CollectionView ItemsSource="{Binding Questions}" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding Question}"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium" />
+                            <Label Text="{Binding Answer}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
         </VerticalStackLayout>
     </ScrollView>

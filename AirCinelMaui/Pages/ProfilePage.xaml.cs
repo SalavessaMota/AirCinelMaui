@@ -1,132 +1,13 @@
 using AirCinelMaui.Services;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
+using AirCinelMaui.ViewModels;
 
 namespace AirCinelMaui.Pages;
 
 public partial class ProfilePage : ContentPage
 {
-    private readonly HttpClient _httpClient;
-    private readonly ApiService _apiService;
-
     public ProfilePage(ApiService apiService)
-	{
-		InitializeComponent();
-        _httpClient = new HttpClient
-        {
-            //BaseAddress = new Uri("https://k6glbgpq-5001.uks1.devtunnels.ms/")
-            BaseAddress = new Uri("https://aircinelmvc.azurewebsites.net/")
-        };
-        _apiService = apiService;
-    }
-
-    protected override async void OnAppearing()
     {
-        base.OnAppearing();
-
-        try
-        {
-            // Obtém o token da `Preference`
-            var token = Preferences.Get("AuthToken", string.Empty);
-
-            if (string.IsNullOrEmpty(token))
-            {
-                await DisplayAlert("Error", "Token not found. Please log in again.", "OK");
-                return;
-            }
-
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            var response = await _httpClient.GetAsync("api/account/getuserimage");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var profileImagePath = await response.Content.ReadAsStringAsync();
-                ImgBtnProfile.Source = ImageSource.FromUri(new Uri(profileImagePath));
-            }
-            else
-            {
-                await DisplayAlert("Error", "Failed to load profile image.", "OK");
-                ImgBtnProfile.Source = "profile.png";
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
-        }
-
-        LblUsername.Text = Preferences.Get("UserName", string.Empty);
-    }
-
-
-
-
-    private void MyAccount_Tapped(object sender, TappedEventArgs e)
-    {
-        Navigation.PushAsync(new MyAccountPage(_apiService));
-    }
-
-    private void Faq_Tapped(object sender, TappedEventArgs e)
-    {
-        Navigation.PushAsync(new QuestionsPage());
-    }
-
-    private async void ImgBtnProfile_Clicked(object sender, EventArgs e)
-    {
-        try
-        {
-            // Selecionar a nova imagem
-            var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
-            {
-                Title = "Select Profile Picture"
-            });
-
-            if (result != null)
-            {
-                using var stream = await result.OpenReadAsync();
-                var content = new MultipartFormDataContent();
-                var fileContent = new StreamContent(stream);
-                fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-
-                content.Add(fileContent, "file", result.FileName);
-
-                var token = Preferences.Get("AuthToken", string.Empty);
-
-                if (string.IsNullOrEmpty(token))
-                {
-                    await DisplayAlert("Error", "Token not found. Please log in again.", "OK");
-                    return;
-                }
-
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                var response = await _httpClient.PostAsync("api/account/uploadImage", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var newImagePath = await response.Content.ReadAsStringAsync();
-                    ImgBtnProfile.Source = ImageSource.FromUri(new Uri(newImagePath));
-                    await DisplayAlert("Success", "Profile picture updated successfully.", "OK");
-                }
-                else
-                {
-                    await DisplayAlert("Error", "Failed to upload the new profile picture.", "OK");
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
-        }
-    }
-
-    private void BtnLogout_Clicked(object sender, EventArgs e)
-    {
-        Preferences.Set("AuthToken", string.Empty);
-        Preferences.Set("TokenExpiration", string.Empty);
-        Preferences.Set("UserId", string.Empty);
-        Preferences.Set("UserName", string.Empty);
-
-        Application.Current!.MainPage = new NavigationPage(new HomePage(_apiService));
+        InitializeComponent();
+        BindingContext = new ProfileViewModel(apiService, Navigation);
     }
 }

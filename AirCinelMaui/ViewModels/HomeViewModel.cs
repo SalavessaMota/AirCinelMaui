@@ -47,7 +47,7 @@ namespace AirCinelMaui.ViewModels
 
         private async Task NavigateToFlightHistory()
         {
-            await _navigation.PushAsync(new FlightHistoryPage(_apiService));
+            await _navigation.PushAsync(new FlightHistoryPage());
         }
 
         private async Task NavigateToUserTickets()

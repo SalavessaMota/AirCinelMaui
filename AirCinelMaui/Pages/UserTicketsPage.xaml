@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AirCinelMaui.Pages.UserTicketsPage"
-             Title="Your Tickets">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:AirCinelMaui.ViewModels"
+    x:Class="AirCinelMaui.Pages.UserTicketsPage"
+    Title="Your Tickets">
 
     <ScrollView>
         <StackLayout Padding="10" Spacing="15">
-            <Label Text="Your Tickets" 
-                   FontSize="Large" 
+            <Label Text="Your Tickets"
+                   FontSize="Large"
                    HorizontalOptions="Center" />
 
-            <StackLayout x:Name="TicketsStackLayout" Spacing="10">
-            </StackLayout>
+            <CollectionView ItemsSource="{Binding Tickets}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray"
+                               CornerRadius="8"
+                               Padding="10"
+                               Margin="5">
+                            <StackLayout Spacing="10">
+                                <Label Text="{Binding TicketIdText}" FontSize="18" FontAttributes="Bold" />
+                                <Label Text="{Binding SeatNumberText}" FontSize="14" />
+                                <Label Text="{Binding FlightNumberText}" FontSize="14" />
+                                <Label Text="{Binding DepartureText}" FontSize="14" />
+                                <Label Text="{Binding ArrivalText}" FontSize="14" />
+                                <Label Text="{Binding DepartureTimeText}" FontSize="14" />
+                                <Label Text="{Binding ArrivalTimeText}" FontSize="14" />
+                                <Image Source="{Binding AirplaneImage}" WidthRequest="100" HeightRequest="60" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
         </StackLayout>
     </ScrollView>
 

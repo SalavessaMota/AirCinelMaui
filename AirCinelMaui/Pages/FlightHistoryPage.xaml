@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AirCinelMaui.Pages.FlightHistoryPage"
-             Title="Flight History">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:AirCinelMaui.ViewModels"
+    x:Class="AirCinelMaui.Pages.FlightHistoryPage"
+    Title="Flight History">
+
+    <ContentPage.BindingContext>
+        <vm:FlightHistoryViewModel />
+    </ContentPage.BindingContext>
 
     <ScrollView>
         <StackLayout Padding="10" Spacing="15">
@@ -10,8 +16,45 @@
                    FontSize="Large" 
                    HorizontalOptions="Center" />
 
-            <StackLayout x:Name="HistoryStackLayout" Spacing="10">
-            </StackLayout>
+            <CollectionView ItemsSource="{Binding FlightHistory}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray"
+                               CornerRadius="8"
+                               Padding="10"
+                               Margin="5">
+                            <StackLayout Spacing="10">
+                                <Label Text="{Binding FlightNumberText}" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding DurationText}" 
+                                       FontSize="14" />
+
+                                <!-- Departure and Arrival Airports -->
+                                <StackLayout Orientation="Vertical" Spacing="10">
+                                    <Label Text="From" FontSize="24" HorizontalOptions="Center" />
+                                    <Image Source="{Binding DepartureAirport.ImageFullPath}" WidthRequest="50" HeightRequest="50" />
+                                    <Label Text="{Binding DepartureAirport.Name}" />
+                                    <Label Text="{Binding DepartureTime}"/>
+
+                                    <Label Text="To" FontSize="24" HorizontalOptions="Center" />
+                                    <Image Source="{Binding ArrivalAirport.ImageFullPath}" WidthRequest="50" HeightRequest="50" />
+                                    <Label Text="{Binding ArrivalAirport.Name}" />
+                                    <Label Text="{Binding ArrivalTime}"/>
+                                </StackLayout>
+
+                                <!-- Airplane Information -->
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Image Source="{Binding Airplane.ImageFullPath}" WidthRequest="60" HeightRequest="40" />
+                                    <Label Text="{Binding Airplane.Manufacturer}" FontSize="12" />
+                                    <Label Text="{Binding Airplane.Model}" FontSize="12" />
+                                </StackLayout>
+                                
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ScrollView>
 </ContentPage>

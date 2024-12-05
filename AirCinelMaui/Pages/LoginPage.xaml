@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AirCinelMaui.Pages.LoginPage"
-             Title="LoginPage">
-    
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="AirCinelMaui.Pages.LoginPage"
+    Title="LoginPage">
+
     <Grid RowDefinitions="Auto,Auto,Auto,Auto,*"
-      RowSpacing="20"
-      Margin="20,150,20,40">
+          RowSpacing="20"
+          Margin="20,150,20,40">
 
         <Image Grid.Row="0"
-           Source="logoaircinelnavbar.png"
-           Aspect="AspectFit"
-           HeightRequest="50"
-           WidthRequest="300" 
-           HorizontalOptions="CenterAndExpand"
-           VerticalOptions="Start" />
-        
+               Source="logoaircinelnavbar.png"
+               Aspect="AspectFit"
+               HeightRequest="50"
+               WidthRequest="300" 
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Start" />
+
         <Label Grid.Row="1"
-           Text="Login"
-           FontAttributes="Bold"
-           HorizontalOptions="Center" />
+               Text="Login"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
 
         <Frame Grid.Row="2"
-           Padding="15"
-           BackgroundColor="White">
+               Padding="15"
+               BackgroundColor="White">
 
             <VerticalStackLayout>
 
                 <Entry Placeholder="Email"
-                   x:Name="EmailEntry" />
+                       Text="{Binding Email}" />
 
                 <Entry Placeholder="Password"
-                   IsPassword="True"
-                   x:Name="PasswordEntry" />
+                       IsPassword="True"
+                       Text="{Binding Password}" />
             </VerticalStackLayout>
         </Frame>
 
         <Button Grid.Row="3"
-            Text="Enter"
-            FontSize="Medium"
-            x:Name="BtnSignIn" 
-            Clicked="BtnSignIn_Clicked"/>
+                Text="Enter"
+                FontSize="Medium"
+                Command="{Binding LoginCommand}" />
 
         <VerticalStackLayout Grid.Row="4">
-            
+
             <HorizontalStackLayout
                    Spacing="2"
                    HorizontalOptions="Center"
@@ -51,8 +51,7 @@
                 <Label Text="Don't have an account ?" />
                 <Label Text="Sign up now" FontAttributes="Bold">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer x:Name="TapRegister"
-                              Tapped="TapRegister_Tapped"/>
+                        <TapGestureRecognizer Command="{Binding RegisterCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
             </HorizontalStackLayout>
@@ -64,15 +63,14 @@
                 <Label Text="Forgot your password ?" />
                 <Label Text="Recover password" FontAttributes="Bold">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer x:Name="TapRecoverpassword"
-                  Tapped="TapRecoverpassword_Tapped"/>
+                        <TapGestureRecognizer Command="{Binding RecoverPasswordCommand}" />
                     </Label.GestureRecognizers>
                 </Label>
             </HorizontalStackLayout>
-            
+
         </VerticalStackLayout>
-        
-        
+
+
     </Grid>
-    
+
 </ContentPage>
