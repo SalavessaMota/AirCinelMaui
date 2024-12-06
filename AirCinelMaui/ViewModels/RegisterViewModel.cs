@@ -200,77 +200,39 @@ public class RegisterViewModel : BaseViewModel
 
     private async Task RegisterAsync()
     {
-        // Validate required fields
-        if (string.IsNullOrWhiteSpace(FirstName) ||
-            string.IsNullOrWhiteSpace(LastName) ||
-            string.IsNullOrWhiteSpace(Email) ||
-            string.IsNullOrWhiteSpace(Password) ||
-            string.IsNullOrWhiteSpace(ConfirmPassword))
-        {
-            await Application.Current.MainPage.DisplayAlert("Error", "Please fill in all required fields.", "OK");
-            return;
-        }
-
-        // Validate email
-        if (!new EmailAddressAttribute().IsValid(Email))
-        {
-            await Application.Current.MainPage.DisplayAlert("Error", "Please enter a valid email address.", "OK");
-            return;
-        }
-
-        // Validate password
-        var passwordRegex = new System.Text.RegularExpressions.Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
-        if (!passwordRegex.IsMatch(Password))
-        {
-            await Application.Current.MainPage.DisplayAlert("Error", "The password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, one digit, and one special character.", "OK");
-            return;
-        }
-
-        // Check if passwords match
-        if (Password != ConfirmPassword)
-        {
-            await Application.Current.MainPage.DisplayAlert("Error", "The password and confirmation password do not match.", "OK");
-            return;
-        }
-
-        // Validate selected country and city
+        // Validações...
         if (SelectedCountry == null || SelectedCity == null)
         {
             await Application.Current.MainPage.DisplayAlert("Error", "Please select a country and a city.", "OK");
             return;
         }
 
-        // Upload image if selected
-        Guid imageId = Guid.Empty;
-        if (_selectedImageFile != null)
-        {
-            imageId = await UploadImageAsync(_selectedImageFile);
-
-            if (imageId == Guid.Empty)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Image upload failed. Please try again.", "OK");
-                return;
-            }
-        }
-
-        // Create registration DTO
-        var registerDto = new RegisterDto
-        {
-            FirstName = FirstName.Trim(),
-            LastName = LastName.Trim(),
-            Address = Address?.Trim(),
-            PhoneNumber = PhoneNumber?.Trim(),
-            Username = Email.Trim(),
-            Password = Password,
-            ConfirmPassword = ConfirmPassword,
-            CityId = SelectedCity.Id,
-            ImageId = imageId
-        };
-
         try
         {
-            // Send registration to API
-            var response = await _httpClient.PostAsJsonAsync("api/account/register", registerDto);
+            // Preparar conteúdo multipart/form-data
+            using var content = new MultipartFormDataContent();
+
+            // Adicionar dados de texto
+            content.Add(new StringContent(FirstName), "FirstName");
+            content.Add(new StringContent(LastName), "LastName");
+            content.Add(new StringContent(Address ?? ""), "Address");
+            content.Add(new StringContent(PhoneNumber ?? ""), "PhoneNumber");
+            content.Add(new StringContent(Email), "Username");
+            content.Add(new StringContent(Password), "Password");
+            content.Add(new StringContent(ConfirmPassword), "ConfirmPassword");
+            content.Add(new StringContent(SelectedCity.Id.ToString()), "CityId");
+
+            // Adicionar imagem, se fornecida
+            if (_selectedImageFile != null)
+            {
+                var stream = await _selectedImageFile.OpenReadAsync();
+                var fileContent = new StreamContent(stream);
+                fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+                content.Add(fileContent, "ImageFile", _selectedImageFile.FileName);
+            }
+
+            // Enviar pedido para o backend
+            var response = await _httpClient.PostAsync("api/account/registerWithImage", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -288,6 +250,7 @@ public class RegisterViewModel : BaseViewModel
             await Application.Current.MainPage.DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
         }
     }
+
 
     private async Task<Guid> UploadImageAsync(FileResult imageFile)
     {
